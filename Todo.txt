@@ -1,0 +1,3 @@
+- optimize when min is at tail
+    - no need to go down
+- rotate stack a after half are transfered to stack b
