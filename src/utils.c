@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:49:32 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/05 21:04:53 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/06 19:55:51 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,16 @@ t_stack	*get_before_tail(t_stack **head)
 	while(before_tail->next->next != NULL && *head != NULL)
 		before_tail = before_tail->next;
 	return (before_tail);
+}
+
+t_stack	*get_tail(t_stack **head)
+{
+	t_stack *tail;
+
+	tail = *head;
+	while(tail->next != NULL && *head != NULL)
+		tail = tail->next;
+	return (tail);
 }
 
 /*

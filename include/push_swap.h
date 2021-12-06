@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:02:17 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/05 19:27:11 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/06 19:56:12 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_stack
 
 void	print_stacks(t_stack *a, t_stack *b);
 t_stack	*init_stack(int count, char **input);
+t_stack	*get_tail(t_stack **head);
 t_stack	*get_before_tail(t_stack **head);
 int		push(t_stack **src, t_stack **dest, char id);
 int		rotate(t_stack **head, char id);
