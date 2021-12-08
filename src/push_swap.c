@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:02:03 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/06 23:49:54 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/08 18:29:08 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,28 @@ void	ft_error(char *msg)
 	exit (-1);
 }
 
+int	peak_ahead(int val, t_stack *b, int len)
+{
+	while(len >= 0 && b != NULL)
+	{
+		if (val > b->value)
+			return (1);
+		b = b->next;
+	}
+	return (0);
+}
+
 void	sort_stack(t_stack **a, t_stack **b, int len)
 {
 	int max;
 	int min;
 	static int iter = 0;
+	int inner_iter = 0;
+	int check = 0;
 
 	iter++;
 	if (*b == NULL)
-	{
 		push(a, b, 'b');
-		return ;
-	}
 
 	while((*a)->value > (*b)->value)
 	{
@@ -41,15 +51,26 @@ void	sort_stack(t_stack **a, t_stack **b, int len)
 		rev_rotate(b, 'b');
 	}
 	
+	if (*a == NULL)
+		return ; 
+
 	while((*a)->value < (*b)->value)
 	{
-		min = (*b)->value;
-		rotate(b, 'b');
-		if ((*b)->value >= min || (*a)->value > (*b)->value)
+		if ((*a)->value > (*b)->next->value 
+			|| (*b)->value < (*b)->next->value)
 		{
+			rotate(b, 'b');
 			push(a, b, 'b');
-			break ;
+			break;
 		}
+		// if (peak_ahead((*a)->value, (*b)->next, 10))
+		// {
+		// 	printf("peaked\n");
+		// 	rotate(b, 'b');
+		// }
+		// else
+			// rotate(a, 'b');
+			comb_oper(rotate, a, b, 'r');
 	}
 	
 }
@@ -84,7 +105,7 @@ void	init_scan(t_stack **a, t_stack **b, int len)
 			push(a, b, 'b');
 		else
 		{
-			rotate(a, 'a');
+			rev_rotate(a, 'a');
 		}
 		len--;
 	}
@@ -115,3 +136,19 @@ int	main(int argc, char *argv[])
 
 	return (0);
 }
+
+// if ((*a)->next && (*a)->next->value > (*a)->value)
+// {
+// 	rotate(a, 'a');
+// 	continue ;
+// }
+// else
+// else
+// {
+// 	rotate(b, 'b');
+// }
+// if (b_rot < 2)
+// {
+// 	rotate(b, 'a');
+// }
+// else

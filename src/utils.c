@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:49:32 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/06 19:55:51 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/08 13:07:06 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_stacks(t_stack *a, t_stack *b)
 {
 	int lines;
 
-	lines = 46;
+	lines = 51;
 	FILE *fptr = fopen("stack.txt", "w");
 	fprintf(fptr, "\n\nStack a\t\tStack b\n\n");
 	while (lines-- > 0)
