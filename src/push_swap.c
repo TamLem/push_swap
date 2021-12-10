@@ -25,13 +25,14 @@ int	peak_ahead(int val, t_stack *b, int len)
 		if (val > b->value)
 			return (1);
 		b = b->next;
+		len--;
 	}
 	return (0);
 }
 
 void	sort_stack(t_stack **a, t_stack **b, int len)
 {
-	int max;
+	int max = 0;
 	int min;
 	static int iter = 0;
 	int inner_iter = 0;
@@ -43,13 +44,14 @@ void	sort_stack(t_stack **a, t_stack **b, int len)
 
 	while((*a)->value > (*b)->value)
 	{
-		if(!((*a)->value > get_tail(b)->value) || !((*b)->value < get_tail(b)->value))
+		if(!((*a)->value > get_tail(*b)->value) || !((*b)->value < get_tail(*b)->value))
 		{
 			push(a, b, 'b');
 			break;
 		}
 		rev_rotate(b, 'b');
 	}
+	print_stacks(*a, *b);
 	
 	if (*a == NULL)
 		return ; 
@@ -63,53 +65,16 @@ void	sort_stack(t_stack **a, t_stack **b, int len)
 			push(a, b, 'b');
 			break;
 		}
-		// if (peak_ahead((*a)->value, (*b)->next, 10))
-		// {
-		// 	printf("peaked\n");
-		// 	rotate(b, 'b');
-		// }
-		// else
-			// rotate(a, 'b');
+		if ((*a)->next == NULL || peak_ahead((*a)->value, (*b)->next, 5) )
+		{
+			rotate(b, 'b');
+		}
+		else
 			comb_oper(rotate, a, b, 'r');
 	}
 	
 }
 
-void	init_scan(t_stack **a, t_stack **b, int len)
-{
-	int cplen = len;
-	while(len >= 0)
-	{
-		if (*b == NULL)
-		{
-			push(a, b, 'b');
-			continue ;
-		}
-		else if ((*a)->value > (*b)->value)
-			push(a, b, 'b');
-		else
-		{
-			rotate(a, 'a');
-		}
-		len--;
-	}
-	len = cplen;
-	while(len >= 0)
-	{
-		if (*b == NULL)
-		{
-			push(a, b, 'b');
-			continue ;
-		}
-		else if ((*a)->value < (*b)->value)
-			push(a, b, 'b');
-		else
-		{
-			rev_rotate(a, 'a');
-		}
-		len--;
-	}
-}
 
 int	main(int argc, char *argv[])
 {

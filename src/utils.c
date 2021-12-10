@@ -75,12 +75,12 @@ t_stack	*get_before_tail(t_stack **head)
 	return (before_tail);
 }
 
-t_stack	*get_tail(t_stack **head)
+t_stack	*get_tail(t_stack *head)
 {
 	t_stack *tail;
 
-	tail = *head;
-	while(tail->next != NULL && *head != NULL)
+	tail = head;
+	while(tail->next != NULL && head != NULL)
 		tail = tail->next;
 	return (tail);
 }
