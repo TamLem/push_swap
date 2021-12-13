@@ -2,35 +2,50 @@
 
 void	sort_2(t_stack **a, t_stack **b, int len)
 {
+	int max = 0;
+	int min;
+	int inner_iter = 2;
+	int check = 0;
+
+
 	if (*b == NULL)
 		push(a, b, 'b');
 
 	if((*a)->value > (*b)->value)
 	{
-		if(!((*a)->value > get_tail(*b)->value) || !((*b)->value < get_tail(*b)->value))
+		if(!((*a)->value > (*b)->prev->value) || !((*b)->value < (*b)->prev->value))
 		{
+			// printf("1\n");
 			push(a, b, 'b');
+			return ;
 		}
-		rev_rotate(b, 'b');
+		if (get_tail(*a)->value > get_tail(*b)->value)
+			comb_oper(rev_rotate, a, b, 'R');
+		else
+			rev_rotate(b, 'b');
 	}
-	print_stacks(*a, *b);
-	
 	if (*a == NULL)
 		return ; 
-
-	if((*a)->value < (*b)->value)
+	
+	if ((*a)->value < (*b)->value) 
 	{
+		
 		if ((*a)->value > (*b)->next->value 
 			|| (*b)->value < (*b)->next->value)
 		{
 			rotate(b, 'b');
 			push(a, b, 'b');
+			return ;
 		}
-		rotate(b, 'b');
-		return ;
+		// if ((*a)->next == NULL || peak_ahead((*a)->value, (*b)->next, 5) )
+		// {
+		// 	rotate(b, 'b');
+		// }
+		// else
+			rotate(b, 'b');
+			// comb_oper(rotate, a, b, 'r');
 	}
-	comb_oper(rotate, a, b, 'r');
-	
+		
 }
 
 void	init_scan(t_stack **a, t_stack **b, int len)
