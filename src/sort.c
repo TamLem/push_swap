@@ -8,43 +8,38 @@ void	sort_2(t_stack **a, t_stack **b, int len)
 	int check = 0;
 
 
-	if (*b == NULL)
-		push(a, b, 'b');
-
-	if((*a)->value > (*b)->value)
+	if (*b == NULL || (*b)->next == NULL)
 	{
-		if(!((*a)->value > (*b)->prev->value) || !((*b)->value < (*b)->prev->value))
+		push(a, b, 'b');
+		return ;
+	}
+
+	if (((*a)->value > (*b)->value && (*a)->value < (*b)->prev->value)
+		|| ((*a)->value > (*b)->value && (*b)->value > (*b)->prev->value)
+		|| ((*a)->value < (*b)->prev->value && (*b)->value > (*b)->prev->value))
 		{
-			// printf("1\n");
 			push(a, b, 'b');
 			return ;
 		}
-		if (get_tail(*a)->value > get_tail(*b)->value)
-			comb_oper(rev_rotate, a, b, 'R');
-		else
-			rev_rotate(b, 'b');
+
+	int pa = peak_ahead((*a)->value, *b, 5);
+	int pb = peak_back((*a)->value, *b, 5);
+
+	// printf("Peak ahead %d\n", pa);
+	// printf("Peak back %d\n", pb);
+	if (pa != 0 && (pa <= pb || pb == 0))
+	{
+		rotate(b, 'b');
 	}
+	else if (pb != 0 && (pb <= pa || pa == 0))
+	{
+		rev_rotate(b, 'b');
+	}
+	else
+		comb_oper(rotate, a, b, 'r');
+
 	if (*a == NULL)
 		return ; 
-	
-	if ((*a)->value < (*b)->value) 
-	{
-		
-		if ((*a)->value > (*b)->next->value 
-			|| (*b)->value < (*b)->next->value)
-		{
-			rotate(b, 'b');
-			push(a, b, 'b');
-			return ;
-		}
-		// if ((*a)->next == NULL || peak_ahead((*a)->value, (*b)->next, 5) )
-		// {
-		// 	rotate(b, 'b');
-		// }
-		// else
-			rotate(b, 'b');
-			// comb_oper(rotate, a, b, 'r');
-	}
 		
 }
 

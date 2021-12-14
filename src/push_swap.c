@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:02:03 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/13 19:37:18 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/14 23:52:36 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,18 @@ void	ft_error(char *msg)
 
 int	peak_ahead(int val, t_stack *b, int len)
 {
+	int i;
+
+	i = 1;
+	b = b->next;
 	while(len >= 0 && b != NULL)
 	{
-		if (val > b->value)
-			return (1);
+		if ((val > b->value && val < b->prev->value)
+			|| (val > b->value && b->value > b->prev->value)
+			|| (val < b->prev->value && b->value > b->prev->value))
+			return (i);
 		b = b->next;
+		i++;
 		len--;
 	}
 	return (0);
@@ -32,15 +39,27 @@ int	peak_ahead(int val, t_stack *b, int len)
 
 int	peak_back(int val, t_stack *b, int len)
 {
+	int	i;
+
+	i = 1;
+	b = b->next;
 	while(len >= 0 && b != NULL)
 	{
-		if (val < b->value)
-			return (1);
+		if ((val > b->value && val < b->prev->value)
+			|| (val > b->value && b->value > b->prev->value)
+			|| (val < b->prev->value && b->value > b->prev->value))
+			return (i);
 		b = b->prev;
+		i++;
 		len--;
 	}
 	return (0);
 }
+
+// int	pick(int val, t_stack *b, int len)
+// {
+	
+// }
 
 void	sort_stack(t_stack **a, t_stack **b, int len)
 {
@@ -56,25 +75,25 @@ void	sort_stack(t_stack **a, t_stack **b, int len)
 
 	while((*a)->value > (*b)->value)
 	{
-		if((*b)->prev == NULL || !((*a)->value > (*b)->prev->value) || !((*b)->value < (*b)->prev->value))
+		if((*b)->prev == NULL || !((*a)->value > (*b)->prev->value) 
+		|| !((*b)->value < (*b)->prev->value))
 		{
 			push(a, b, 'b');
 			break;
 		}
-		if ((*a)->next == NULL || peak_back((*a)->value, (*b)->next, 5) || get_len(*a) < 10)
-		{
-			rev_rotate(b, 'b');
-		}
-		else
-			comb_oper(rotate, a, b, 'r');
+		rev_rotate(b, 'b');
 	}
 	print_stacks(a, b);
-	
 	if (*a == NULL)
 		return ; 
 
 	while((*a)->value < (*b)->value)
 	{
+		if ((*a)->value < (*b)->prev->value && (*b)->value > (*b)->prev->value)
+		{
+			push(a, b, 'b');
+			break ;
+		}
 		if ((*a)->value > (*b)->next->value 
 			|| (*b)->value < (*b)->next->value)
 		{
@@ -83,7 +102,7 @@ void	sort_stack(t_stack **a, t_stack **b, int len)
 			break;
 		}
 	
-		if ((*a)->next == NULL || peak_ahead((*a)->value, (*b)->next, 5) )
+		if ((*a)->next == NULL || peak_ahead((*a)->value, (*b)->next, 5))
 		{
 			rotate(b, 'b');
 		}

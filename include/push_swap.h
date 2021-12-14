@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:02:17 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/13 19:17:33 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/14 21:24:37 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	init_scan(t_stack **a, t_stack **b, int len);
 void	sort_2(t_stack **a, t_stack **b, int len);
 int		peak_ahead(int val, t_stack *b, int len);
 int		get_len(t_stack *head);
-
-
+int		peak_ahead(int val, t_stack *b, int len);
+int		peak_back(int val, t_stack *b, int len);
 
 
 #endif
