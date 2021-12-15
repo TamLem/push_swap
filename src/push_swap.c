@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:02:03 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/14 23:52:36 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/15 22:12:39 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ void	ft_error(char *msg)
 	exit (-1);
 }
 
-int	peak_ahead(int val, t_stack *b, int len)
+int	peak_ahead(int val, t_stack *b)
 {
 	int i;
+	int start;
 
 	i = 1;
+	start = b->value;
 	b = b->next;
-	while(len >= 0 && b != NULL)
+	while(b != NULL && b->value != start)
 	{
 		if ((val > b->value && val < b->prev->value)
 			|| (val > b->value && b->value > b->prev->value)
@@ -32,18 +34,19 @@ int	peak_ahead(int val, t_stack *b, int len)
 			return (i);
 		b = b->next;
 		i++;
-		len--;
 	}
 	return (0);
 }
 
-int	peak_back(int val, t_stack *b, int len)
+int	peak_back(int val, t_stack *b)
 {
 	int	i;
+	int	start;
 
 	i = 1;
-	b = b->next;
-	while(len >= 0 && b != NULL)
+	start = b->value;
+	b = b->prev;
+	while(b != NULL && b->value != start)
 	{
 		if ((val > b->value && val < b->prev->value)
 			|| (val > b->value && b->value > b->prev->value)
@@ -51,7 +54,6 @@ int	peak_back(int val, t_stack *b, int len)
 			return (i);
 		b = b->prev;
 		i++;
-		len--;
 	}
 	return (0);
 }
@@ -102,11 +104,11 @@ void	sort_stack(t_stack **a, t_stack **b, int len)
 			break;
 		}
 	
-		if ((*a)->next == NULL || peak_ahead((*a)->value, (*b)->next, 5))
-		{
-			rotate(b, 'b');
-		}
-		else
+		// if ((*a)->next == NULL || peak_ahead((*a)->value, (*b)->next, 5))
+		// {
+		// 	rotate(b, 'b');
+		// }
+		// else
 			comb_oper(rotate, a, b, 'r');
 			// rotate(a, 'a');
 	}
@@ -152,19 +154,22 @@ int	main(int argc, char *argv[])
 	b = malloc(sizeof(t_stack *));
 	*a = init_stack(argc - 1, &(argv[1]));
 	// init_scan(&a, &b, argc -1);
-	scanf("%d", &steps);
+	// scanf("%d", &steps);
 	while(*a != NULL)
 	{
-		sort_stack(a, b, argc - 1);
-		steps--;	
-		if(!steps)
-		{
-			print_stacks(a, b);
-			scanf("%d", &steps);
-		}
+		sort_2(a, b, argc - 1);
+		// steps--;	
+		// if(!steps)
+		// {
+		// 	print_stacks(a, b);
+		// 	scanf("%d", &steps);
+		// }
 	}
 	print_stacks(a, b);
-
+	while ((*b)->value < (*b)->prev->value)
+			rotate(b, 'b');
+	while (*b != NULL)
+		push(b, a, 'a');
 	return (0);
 }
 
@@ -178,7 +183,7 @@ if ((*a)->next->value > (*a)->value && (*a)->value > (*b)->value)
 	char *cmd;
 	while((cmd = get_next_line(0)) != NULL)
 		{
-			run_cmds(cmd, &a, &b, argc - 1);
+			run_cmds(cmd, a, b, argc - 1);
 			print_stacks(a, b);
 		}
 	return 1;

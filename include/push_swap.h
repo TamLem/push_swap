@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:02:17 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/14 21:24:37 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/15 17:39:15 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int		comb_oper(int (*oper)(t_stack **head, char id), t_stack **src1, t_stack **s
 void	pop_sort(t_stack **a, t_stack **b);
 void	init_scan(t_stack **a, t_stack **b, int len);
 void	sort_2(t_stack **a, t_stack **b, int len);
-int		peak_ahead(int val, t_stack *b, int len);
+int		peak_ahead(int val, t_stack *b);
 int		get_len(t_stack *head);
-int		peak_ahead(int val, t_stack *b, int len);
-int		peak_back(int val, t_stack *b, int len);
+int		peak_ahead(int val, t_stack *b);
+int		peak_back(int val, t_stack *b);
 
 
 #endif

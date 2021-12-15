@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:24:03 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/13 19:35:17 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/15 21:59:51 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		push(t_stack **src_head, t_stack **dest_head, char id)
 	{
 		(*dest_head)->next = NULL;
 		(*dest_head)->prev = NULL;
+		if (id != BOTH_STACKS)
+		printf("p%c\n",id);
 		return (1);
 	}
 	(*dest_head)->next = old_head;
