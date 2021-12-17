@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:02:03 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/15 22:12:39 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/17 19:25:28 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int	main(int argc, char *argv[])
 	// scanf("%d", &steps);
 	while(*a != NULL)
 	{
-		sort_2(a, b, argc - 1);
+		sort_3(a, b, argc - 1);
 		// steps--;	
 		// if(!steps)
 		// {
