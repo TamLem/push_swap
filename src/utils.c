@@ -6,11 +6,30 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:49:32 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/17 17:17:29 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/18 20:26:31 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+
+void	ft_error(char *msg)
+{
+	printf("%s\n", msg);
+	exit (-1);
+}
+
+int	ft_substrlen(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (*s != NULL)
+	{
+		s++;
+		i++;
+	}
+	return (i);
+}
 
 int		get_len(t_stack *head)
 {
@@ -91,35 +110,3 @@ t_stack	*init_stack(int count, char **input)
 	a.prev = temp;
 	return (&a);
 }
-
-t_stack	*get_before_tail(t_stack **head)
-{
-	t_stack *before_tail;
-
-	before_tail = *head;
-	while(before_tail->next->next != NULL && *head != NULL)
-		before_tail = before_tail->next;
-	return (before_tail);
-}
-
-t_stack	*get_tail(t_stack *head)
-{
-	t_stack *tail;
-
-	tail = head;
-	while(tail->next != NULL && head != NULL)
-		tail = tail->next;
-	return (tail);
-}
-
-/*
-t_stack	*get_tail(t_stack **head)
-{
-	t_stack *tail;
-
-	tail = *head;
-	while(tail->next != NULL && *head != NULL)
-		tail = tail->next;
-	return (tail);
-}
-*/
