@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 18:03:51 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/18 21:42:04 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/21 16:58:53 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,44 +41,37 @@ void	run_cmds(char *cmd, t_stack **a, t_stack **b)
 		printf("Wrong command\n");
 }
 
-int	check_sort(t_stack *a, int count)
-{
-	int	start;
 
-	start = a->value;
-	while (count > 0 || a->value != start)
-	{
-		if (a->value > a->next->value)
-			break ;
-	}
-	if (count != 0)
-		
-}
 
 int	main(int argc, char *argv[])
 {
-	t_stack **a;
-	t_stack **b;
-	char	**nums;
-	int		count;
-	char	*cmd;
+	t_stack *a;
+	t_stack *b;
+	t_stack head;
+	char **nums;
+	int count;
+	int mem_alloc;
+	char *cmd;
 
-	if (argc < 2)
-		ft_error("not enough arguments.");
-	a = malloc(sizeof(t_stack *));
-	b = malloc(sizeof(t_stack *));
-	if (a == NULL || b == NULL)
-		ft_error("memory allocation not possible.");
+	a = &head;
+	b = NULL;
+	mem_alloc = 0;
 	if (argc == 2)
+	{
 		nums = ft_split(argv[1], ' ');
+		mem_alloc = 1;
+	}
 	else
 		nums = &(argv[1]);
+	if(!check_input(nums))
+		ft_error("Input list contains unallowed charachters");
 	count = ft_substrlen(nums);
-	*a = init_stack(count, nums);
+	init_stack(count, nums, &a);
 	while((cmd = get_next_line(0)) != NULL)
-	{
-		run_cmds(cmd, a, b);
-		print_stacks(a, b);
-	}
+		run_cmds(cmd, &a, &b);
+	if(is_sorted(a) && get_len(a) == count)
+		printf("OK");
+	else
+		printf("KO");
 	return (0);
 }

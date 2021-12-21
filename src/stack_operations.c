@@ -6,54 +6,11 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:24:03 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/18 20:21:39 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/21 17:53:27 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-int		push(t_stack **src_head, t_stack **dest_head, char id)
-{	
-	t_stack *old_head;
-
-	if (*src_head == NULL)
-		return (0);
-	old_head = *dest_head;
-	*dest_head = *src_head;
-	if ((*src_head)->next == *src_head || (*src_head)->next == NULL)
-		*src_head = NULL;
-	else
-	{
-		(*src_head)->next->prev = (*src_head)->prev;
-		(*src_head)->prev->next = (*src_head)->next;
-		*src_head = (*src_head)->next;
-	}
-	if (old_head == NULL)
-	{
-		(*dest_head)->next = NULL;
-		(*dest_head)->prev = NULL;
-		if (id != BOTH_STACKS)
-		printf("p%c\n",id);
-		return (1);
-	}
-	(*dest_head)->next = old_head;
-	if (old_head->prev == NULL && old_head->next == NULL)
-	{
-		(*dest_head)->prev = old_head;
-		old_head->prev = *dest_head;
-		old_head->next = *dest_head;
-	}
-	else
-	{
-		(*dest_head)->prev = old_head->prev;
-		old_head->prev->next = *dest_head;
-		old_head->prev = *dest_head;
-	}
-	
-	if (id != BOTH_STACKS)
-		printf("p%c\n",id);
-	return (1);
-}
 
 int		rotate(t_stack **head, char id)
 {
@@ -77,18 +34,18 @@ int		rev_rotate(t_stack **head, char id)
 
 int		swap_head(t_stack **head, char id)
 {
-	t_stack	*temp;
+	t_stack	*old_head;
 
 	if ((*head) == NULL || (*head)->next == NULL)
 		return (0);
-	temp = *head;
+	old_head = *head;
 	*head = (*head)->next;
-	(*head)->prev = temp->prev;
+	(*head)->prev = old_head->prev;
 	(*head)->prev->next = *head;
-	temp->next = (*head)->next;
-	temp->prev = *head;
-	temp->next->prev = temp;
-	(*head)->next = temp;
+	old_head->prev = *head;
+	old_head->next = (*head)->next;
+	old_head->next->prev = old_head;
+	(*head)->next = old_head;
 	if (id != BOTH_STACKS)
 		printf("s%c\n",id);
 	return (1);

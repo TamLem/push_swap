@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 17:49:32 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/18 20:26:31 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/21 17:18:05 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@ void	ft_error(char *msg)
 {
 	printf("%s\n", msg);
 	exit (-1);
+}
+
+int	is_sorted(t_stack *a)
+{
+	int	start;
+
+	start = a->value;
+	while (a->next->value != start)
+	{
+		if (a->value > a->next->value)
+			return (0);
+		a = a->next;
+	}
+	return (1);
 }
 
 int	ft_substrlen(char **s)
@@ -86,17 +100,16 @@ void	print_stacks(t_stack **a_stack, t_stack **b_stack)
 }
 
 
-t_stack	*init_stack(int count, char **input)
+void	init_stack(int count, char **input, t_stack **a)
 {
 	int		i;
-	static t_stack	a;
 	t_stack	*temp;
 
 	i = 0;
-	a.value = ft_atoi(input[i]);
-	a.next = NULL;
-	a.prev = NULL;
-	temp = &a;
+	(*a)->value = ft_atoi(input[i]);
+	(*a)->next = NULL;
+	(*a)->prev = NULL;
+	temp = *a;
 	i++;
 	while (i < count)
 	{
@@ -106,7 +119,6 @@ t_stack	*init_stack(int count, char **input)
 		temp->next->next = NULL;
 		temp = temp->next;
 	}
-	temp->next = &a;
-	a.prev = temp;
-	return (&a);
+	temp->next = *a;
+	(*a)->prev = temp;
 }

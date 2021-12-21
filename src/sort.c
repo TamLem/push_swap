@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:16:00 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/18 20:21:10 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/21 18:28:31 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ void	profiler(t_stack *a, t_stack *b, int i[])
 	int	len_b;
 	int min_steps;
 
-	pos_a = 0;
-	pos_b = 0;
  	index = 0;
 	len_a = get_len(a);
 	len_b = get_len(b);
-	if (a == NULL || b == NULL)
-		return ;
 	start = a->value;
 	while (a->value != start || index == 0)
 	{
@@ -89,7 +85,7 @@ void	profiler(t_stack *a, t_stack *b, int i[])
 	}
 }
 
-void	sort(t_stack **a, t_stack **b)
+void	large_sort(t_stack **a, t_stack **b)
 {
 	int i[2];
 
@@ -117,7 +113,6 @@ void	sort(t_stack **a, t_stack **b)
 			i[1]++;
 			continue ;
 		}
-
 		if (i[0] > 0)
 		{
 			rotate(a, 'a');
