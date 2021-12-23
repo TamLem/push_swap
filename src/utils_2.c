@@ -6,7 +6,7 @@
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:00:59 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/21 17:19:33 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/23 02:04:50 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ static int	isvalidstr(char *s)
 
 int	check_input(char **nums)
 {
-	char *num;
+	char	*num;
 
 	while (*nums)
 	{
 		num = *nums;
 		if (!isvalidstr(num))
+			return (0);
+		if (ft_atoi(num) > INT_MAX || ft_atoi(num) < INT_MIN)
 			return (0);
 		while (*num)
 		{
@@ -72,7 +74,7 @@ void	free_stacks(t_stack **a, t_stack **head)
 
 int	check_duplicates(t_stack *a)
 {
-	t_stack *temp;
+	t_stack	*temp;
 	int		last;
 
 	last = a->prev->value;

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_operations_2.c                               :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlemma <tlemma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:24:03 by tlemma            #+#    #+#             */
-/*   Updated: 2021/12/21 17:53:09 by tlemma           ###   ########.fr       */
+/*   Updated: 2021/12/22 23:17:30 by tlemma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static void    put_to_b(t_stack *old_head, t_stack **dest_head, char id)
+static void	put_to_b(t_stack *old_head, t_stack **dest_head, char id)
 {
-    if (old_head == NULL)
+	if (old_head == NULL)
 	{
 		(*dest_head)->next = NULL;
 		(*dest_head)->prev = NULL;
-		if (id != BOTH_STACKS)
-		printf("p%c\n",id);
+		if (id != NO_PRINT)
+			ft_printf("p%c\n", id);
 		return ;
 	}
 	(*dest_head)->next = old_head;
@@ -35,13 +35,13 @@ static void    put_to_b(t_stack *old_head, t_stack **dest_head, char id)
 		(*dest_head)->prev->next = *dest_head;
 		old_head->prev = *dest_head;
 	}
-	if (id != BOTH_STACKS)
-		printf("p%c\n",id);
+	if (id != NO_PRINT)
+		ft_printf("p%c\n", id);
 }
 
-int		push(t_stack **src_head, t_stack **dest_head, char id)
+int	push(t_stack **src_head, t_stack **dest_head, char id)
 {	
-	t_stack *old_head;
+	t_stack	*old_head;
 
 	if (*src_head == NULL)
 		return (0);
