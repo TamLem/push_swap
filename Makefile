@@ -14,8 +14,8 @@ NAME = push_swap
 
 CHECKER = checker
 
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=4
+CC = clang
+CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=4 -g
 
 RM = rm -f
 

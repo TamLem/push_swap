@@ -61,6 +61,7 @@ void	profiler(t_stack *a, t_stack *b, int i[])
 	int	min_steps;
 
 	index = 0;
+	min_steps = 0;
 	start = a->value;
 	while ((a->value != start || index == 0))
 	{

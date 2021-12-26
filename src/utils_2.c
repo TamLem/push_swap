@@ -59,17 +59,21 @@ int	check_input(char **nums)
 
 void	free_dp(char **i)
 {
-	while (*i)
+	while (*i != NULL)
 	{
 		free(*i);
 		i++;
 	}
 }
 
-void	free_stacks(t_stack **a, t_stack **head)
+void	free_stacks(t_stack *a, t_stack *head)
 {
-	if ((*a)->next != *head)
-		free_stacks(&((*a)->next), head);
+	if (a != NULL)
+	{
+		if (a->next->value != head->value)
+			free_stacks(a->next, head);
+		free(a);
+	}
 }
 
 int	check_duplicates(t_stack *a)
@@ -77,14 +81,14 @@ int	check_duplicates(t_stack *a)
 	t_stack	*temp;
 	int		last;
 
+	if (a == NULL || a->next == NULL)
+		return (1);
 	last = a->prev->value;
 	if (a->value == last)
 		return (0);
 	while (a->value != last)
 	{
 		temp = a;
-		if (temp->value == last)
-			return (0);
 		while (temp->value != last)
 		{
 			temp = temp->next;

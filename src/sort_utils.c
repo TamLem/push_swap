@@ -30,6 +30,8 @@ int	is_sorted(t_stack *a)
 {
 	int	start;
 
+	if (a == NULL || a->next == NULL)
+		return (0);
 	start = a->value;
 	while (a->next->value != start)
 	{
@@ -40,7 +42,7 @@ int	is_sorted(t_stack *a)
 	return (1);
 }
 
-int	init_single(int count, char **nums, t_stack **temp)
+int	init_single(char *next, char **nums, t_stack **temp)
 {
 	int	i;
 
@@ -48,8 +50,8 @@ int	init_single(int count, char **nums, t_stack **temp)
 	while (nums[i] != NULL)
 	{
 		(*temp)->value = ft_atoi(nums[i]);
-		if (count == 1 && nums[i + 1] == NULL)
-			break ;
+		if (next == NULL && nums[i + 1] == NULL)
+			return (0);
 		(*temp)->next = (t_stack *)malloc(sizeof(t_stack));
 		if ((*temp)->next == NULL)
 			return (0);
@@ -72,10 +74,13 @@ void	init_stack(int count, char **input, t_stack **a)
 		nums = ft_split(input[i], ' ');
 		if (!check_input(nums))
 			ft_error("Error");
-		init_single(count - i, nums, &temp);
+		init_single(input[i + 1], nums, &temp);
 		free_dp(nums);
+		free(nums);
 		i++;
 	}
+	if (temp == *a)
+		return ;
 	temp->next = *a;
 	(*a)->prev = temp;
 	temp = (*a)->next;

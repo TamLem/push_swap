@@ -52,10 +52,15 @@ void	run_cmds(t_stack **a, t_stack **b)
 {
 	char	*cmd;
 
-	if (!check_duplicates(*a) && get_len(*a) > 1)
+	if (!check_duplicates(*a))
 	{
-		free_stacks(a, a);
+		free_stacks((*a)->next, *a);
 		ft_error("Error");
+	}
+	if (get_len(*a) < 2)
+	{
+		free_stacks((*a)->next, *a);
+		exit(1) ;
 	}
 	cmd = get_next_line(0);
 	while (cmd != NULL)
@@ -69,10 +74,11 @@ int	main(int argc, char *argv[])
 {
 	t_stack	*a;
 	t_stack	*b;
-	t_stack	head;
 	char	**nums;
 
-	a = &head;
+	a = malloc(sizeof(t_stack));
+	a->next = NULL;
+	a->prev = NULL;
 	b = NULL;
 	if (argc < 2)
 		return (0);
@@ -83,5 +89,6 @@ int	main(int argc, char *argv[])
 		ft_printf("OK");
 	else
 		ft_printf("KO");
+	free_stacks(a, a);
 	return (0);
 }

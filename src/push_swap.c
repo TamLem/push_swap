@@ -39,13 +39,7 @@ void	sort(t_stack **a, t_stack **b)
 	int	len;
 
 	len = get_len(*a);
-	if (len > 1 && !check_duplicates(*a))
-	{
-		free_stacks(a, a);
-		ft_error("Error");
-	}
-	if (len == 1 || is_sorted(*a))
-		return ;
+	
 	if (len < 4)
 		simple_sort(a);
 	else if (len == 5)
@@ -60,19 +54,56 @@ void	sort(t_stack **a, t_stack **b)
 	}
 }
 
+void	print_stacks(t_stack *a, t_stack *b)
+{
+	int lines;
+
+	lines = 46;
+	FILE *fptr = fopen("stack.txt", "w");
+	fprintf(fptr, "\n\nStack a\t\tStack b\n\n");
+	while (lines-- > 0)
+	{
+		if (a != NULL)
+		{
+			fprintf(fptr, "|_%d_|\t\t", a->value);
+			a = a->next;
+		}
+		else 
+			fprintf(fptr, "|____|\t\t");
+		if (b != NULL)
+		{
+			fprintf(fptr, "|_%d_|", b->value);
+			b = b->next;
+		}
+		else
+			fprintf(fptr, "|____|");
+		fprintf(fptr, "\n");
+	}
+	fclose(fptr);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_stack	*a;
 	t_stack	*b;
-	t_stack	head;
 	char	**nums;
 
-	a = &head;
+	a = malloc(sizeof(t_stack));
+	a->next = NULL;
+	a->prev = NULL;
 	b = NULL;
 	if (argc < 2)
 		ft_error("Error");
 	nums = &(argv[1]);
 	init_stack(ft_substrlen(nums), nums, &a);
+	if (!check_duplicates(a))
+	{
+		free_stacks(a->next, a);
+		ft_error("Error");
+	}
+	if (get_len(a) == 1 || is_sorted(a))
+		return (1);
 	sort(&a, &b);
-	return (0);
+	free_stacks(a, a);
+	return (1);
 }

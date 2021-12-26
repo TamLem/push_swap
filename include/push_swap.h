@@ -31,7 +31,6 @@ typedef struct s_stack
 
 }				t_stack;
 
-void	print_stacks(t_stack **a, t_stack **b);
 void	init_stack(int count, char **input, t_stack **a);
 int		push(t_stack **src, t_stack **dest, char id);
 int		rotate(t_stack **head, char id);
@@ -50,7 +49,7 @@ int		is_sorted(t_stack *a);
 int		check_duplicates(t_stack *a);
 int		check_input(char **nums);
 void	free_dp(char **i);
-void	free_stacks(t_stack **a, t_stack **head);
+void	free_stacks(t_stack *a, t_stack *head);
 void	simple_sort(t_stack **a);
 int		ft_abs(int num);
 int		max(int a, int b);
