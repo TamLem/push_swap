@@ -79,23 +79,22 @@ void	free_stacks(t_stack *a, t_stack *head)
 int	check_duplicates(t_stack *a)
 {
 	t_stack	*temp;
-	int		last;
+	t_stack *head;
 
 	if (a == NULL || a->next == NULL)
 		return (1);
-	last = a->prev->value;
-	if (a->value == last)
-		return (0);
-	while (a->value != last)
+	head = a;
+	temp = a->next;
+	while (temp != head)
 	{
-		temp = a;
-		while (temp->value != last)
+		while (temp != a)
 		{
-			temp = temp->next;
 			if (temp->value == a->value)
 				return (0);
+			temp = temp->next;
 		}
 		a = a->next;
+		temp = a->next;
 	}
 	return (1);
 }
